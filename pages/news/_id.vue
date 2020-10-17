@@ -1,9 +1,19 @@
 <template>
-  <div class="add-news">
-    <span>Редактировать новость:</span>
-    <input type="text" v-model="title" :placeholder="title">
-    <textarea v-model="content" :placeholder="content"></textarea>
-    <button @click="editNews">Сохранить</button>
+  <div>
+    <div v-if="!isChanged" class="add-news">
+      <span>Редактировать новость:</span>
+      <input type="text" v-model="title" :placeholder="title">
+      <textarea v-model="content" :placeholder="content"></textarea>
+      <button @click="editNews">Сохранить</button>
+    </div>
+    <div v-else>
+      <p>
+        Новость успешно отредакторована!
+        <nuxt-link class="link" :to="{path: `/`}">
+          Вернуться на главную
+        </nuxt-link>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -16,6 +26,7 @@ export default {
       title: '',
       content: '',
       id: this.$route.params.id,
+      isChanged: false
     }
   },
 
@@ -28,6 +39,7 @@ export default {
 
       this.title = '';
       this.content = '';
+      this.isChanged = true;
     }
   },
 
@@ -52,5 +64,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .link {
+    color: tomato;
+  }
 </style>
